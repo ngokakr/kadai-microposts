@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
-  get 'microposts/create'
+  get 'relationships/create'
 
-  get 'microposts/destroy'
+  get 'relationships/destroy'
+
+  # get 'microposts/create'
+
+  # get 'microposts/destroy'
 
   # get 'sessions/new'
 
@@ -26,8 +30,18 @@ Rails.application.routes.draw do
   delete "logout", to: "sessions#destroy"
   
   get "signup" , to: "users#new"
-  resources :users, only: [:index,:show,:new,:create]
-  resources :microposts,only: [:create,:destroy]
+  resources :users, only: [:index,:show,:new,:create] do
+    member do
+      get :followings
+      get :followers
+    end
+    
+    # collection do
+    #   get :search
+    # end
+  end
   
+  resources :microposts,only: [:create,:destroy]
+  resources :relationships, only: [:create, :destroy]
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
