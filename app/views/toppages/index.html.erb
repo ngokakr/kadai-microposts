@@ -1,4 +1,5 @@
 <% if logged_in? %>
+  <%= link_to 'お気に入り一覧', favorites_user_path(current_user),class: 'btn btn-warning btn-xs' %>
   <div class="row">
     <aside class="col-md-4">
       <%= form_for(@micropost) do |f| %>
